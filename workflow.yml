@@ -1,0 +1,16 @@
+# .github/workflows/provcheck.yml — verify dependencies weekly and on changes
+name: Dependency source verification
+on:
+  pull_request:
+    paths: ["requirements*.txt"]
+  schedule:
+    - cron: "0 6 * * 1"       # weekly: catches post-merge tampering upstream
+jobs:
+  provcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: toby1ton/provcheck@main
+        with:
+          requirements: requirements.txt
+          fail-on: artifact-only

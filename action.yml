@@ -1,0 +1,22 @@
+name: "provcheck"
+description: "Verify pinned PyPI dependencies match their claimed GitHub source (supply-chain tampering check)"
+branding:
+  icon: "shield"
+  color: "green"
+inputs:
+  requirements:
+    description: "Path to requirements file"
+    required: false
+    default: "requirements.txt"
+  fail-on:
+    description: "Fail the job on: artifact-only (default), differs, or never"
+    required: false
+    default: "artifact-only"
+runs:
+  using: "composite"
+  steps:
+    - name: Run provcheck
+      shell: bash
+      run: |
+        python3 "${{ github.action_path }}/provcheck_ci.py" \
+          "${{ inputs.requirements }}" --fail-on "${{ inputs.fail-on }}"
