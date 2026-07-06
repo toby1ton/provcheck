@@ -39,7 +39,7 @@ requirements and on a weekly schedule (upstream tampering can happen
 *after* you merge):
 
 ```yaml
-- uses: YOURUSER/provcheck@main
+- uses: toby1ton/provcheck@main
   with:
     requirements: requirements.txt
     fail-on: artifact-only    # or: differs | never
